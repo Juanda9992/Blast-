@@ -11,8 +11,8 @@ public class CanonGeneratorManager : MonoBehaviour
     [SerializeField] private float canonSlotParentZPos;
     [SerializeField] private float canonDragParentZPos;
     [Header("Prefab Settings")]
-    [SerializeField] private GameObject canonPlatformPrefab;
-    [SerializeField] private GameObject canonDragPrefab;
+    [SerializeField] private CanonSlot canonPlatformPrefab;
+    [SerializeField] private CanonDrag canonDragPrefab;
 
     private void Start()
     {
@@ -24,12 +24,13 @@ public class CanonGeneratorManager : MonoBehaviour
 
         for (int i = 0; i < cannonsToCreate; i++)
         {
-            GameObject canonSlot = Instantiate(canonPlatformPrefab, canonSlotsParent);
+            CanonSlot canonSlot = Instantiate(canonPlatformPrefab, canonSlotsParent);
             canonSlot.transform.localPosition = new Vector3((spaceBetweenObjects * i) - offset, 0, 0);
 
 
-            GameObject canonDrag = Instantiate(canonDragPrefab, canonDragParent);
+            CanonDrag canonDrag = Instantiate(canonDragPrefab, canonDragParent);
             canonDrag.transform.localPosition = new Vector3((spaceBetweenObjects * i) - offset, 0, 0);
+            canonDrag.SetUpCanon(i);
         }
 
         canonSlotsParent.transform.position = new Vector3(0,0,canonSlotParentZPos);
