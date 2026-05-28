@@ -27,12 +27,13 @@ public class CanonDrag : MonoBehaviour
 
     public void ReleaseCanon()
     {
-        if(desiredPlatform == null)
+        if(desiredPlatform == null || !desiredPlatform.isEmpty)
         {
             transform.DOLocalMove(initialPos,anchorTime);
         }
         else
         {
+            desiredPlatform.AttachCanon(this);
             transform.DOMove(desiredPlatform.transform.position,anchorTime);
         }
     }

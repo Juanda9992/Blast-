@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CanonSlot : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public bool isEmpty
     {
-        
+        get {return currentCanon == null;}
     }
-
-    // Update is called once per frame
-    void Update()
+    private CanonDrag currentCanon;
+    public void AttachCanon(CanonDrag canonDrag)
     {
-        
+        currentCanon = canonDrag;
     }
 }
