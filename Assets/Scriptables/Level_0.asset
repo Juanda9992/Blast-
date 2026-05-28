@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f619eb1319f8bcb4288ea018656f3ffa, type: 3}
   m_Name: Level_0
   m_EditorClassIdentifier: 
-  levelColors: []
+  levelColors:
+  - {r: 1, g: 0.79084766, b: 0, a: 1}
+  - {r: 1, g: 0.10410554, b: 0, a: 1}
