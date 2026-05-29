@@ -26,4 +26,9 @@ public class ObstacleBehaviour : MonoBehaviour
     {
         //rb.velocity = new Vector3(0,0,-5);
     }
+
+    public BlockType GetBlockType()
+    {
+        return blockType;
+    }
 }
