@@ -304,6 +304,7 @@ GameObject:
   - component: {fileID: 950377082}
   - component: {fileID: 950377083}
   - component: {fileID: 950377084}
+  - component: {fileID: 950377085}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -357,6 +358,19 @@ MonoBehaviour:
   obstaclePrefab: {fileID: 6832910503001465886, guid: e2da807b7218a804786d9fed0e9661e8, type: 3}
   startYCoor: 0
   levelRulesManager: {fileID: 1717929936}
+--- !u!114 &950377085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950377081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97906a617cb9e4e478dc0f21ac4cfdf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleBehaviours: []
 --- !u!1 &1002583110
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,7 +696,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canonSlotsParent: {fileID: 2126419527}
   canonDragParent: {fileID: 1014010851}
-  slotsToCreate: 0
   avaliableSpace: 8
   canonSlotParentZPos: -4
   canonDragParentZPos: -7

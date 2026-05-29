@@ -31,6 +31,7 @@ public class CanonRowData
 public class CanonData
 {
     public BlockType canonType;
+    public int canonAmmo;
 }
 public enum BlockType
 {

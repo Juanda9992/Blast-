@@ -36,7 +36,7 @@ public class CanonGeneratorManager : MonoBehaviour
             {
                 CanonDrag canonDrag = Instantiate(canonDragPrefab, canonDragParent);
                 canonDrag.transform.localPosition = new Vector3((spaceBetweenObjects * j) - offset, 0, 0);
-                canonDrag.SetUpCanon(levelRules.canons[i].canonDatas[j].canonType);
+                canonDrag.SetUpCanon(levelRules.canons[i].canonDatas[j]);
             }
         }
         canonSlotsParent.transform.position = new Vector3(0, 0, canonSlotParentZPos);
