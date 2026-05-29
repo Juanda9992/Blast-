@@ -5,6 +5,7 @@ using UnityEngine;
 public class SOLevelRules : ScriptableObject
 {
     public Color[] levelColors;
+    public int canonSlots;
     public List<Row> rows = new List<Row>();
 
 

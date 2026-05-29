@@ -5,7 +5,6 @@ public class ObstacleSpawner : MonoBehaviour
 {
     [SerializeField] private Transform spawnerParent;
     [SerializeField] private ObstacleBehaviour obstaclePrefab;
-    [SerializeField] private int startXCoor =-5;
     [SerializeField] private int startYCoor =-5;
     [SerializeField] private LevelRulesManager levelRulesManager;
 

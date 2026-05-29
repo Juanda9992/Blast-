@@ -3,8 +3,6 @@ using DG.Tweening;
 public class CanonDrag : MonoBehaviour
 {
     [SerializeField] private Renderer _renderer;
-
-    [SerializeField] private float dragSpeed = 20;
     [SerializeField] private float anchorTime;
     private CanonSlot desiredPlatform;
     private Vector3 initialPos;
@@ -18,23 +16,12 @@ public class CanonDrag : MonoBehaviour
     {
         _renderer.material.color = LevelRulesManager.instance.GetLevelRules().levelColors[index];
     }
-
-    public void MoveCanon(Vector3 pos)
+    public void OnCanonClicked()
     {
-        pos.z += 5;
-        transform.localPosition = Vector3.Lerp(transform.localPosition, pos, Time.deltaTime * dragSpeed);
-    }
-
-    public void ReleaseCanon()
-    {
-        if (desiredPlatform == null || !desiredPlatform.isEmpty)
+        CanonSlot slot = CanonSlotManager.instance.GetFreeCanonSpace(); 
+        if(slot != null)
         {
-            transform.DOLocalMove(initialPos, anchorTime);
-        }
-        else
-        {
-            desiredPlatform.AttachCanon(this);
-            transform.DOMove(desiredPlatform.transform.position, anchorTime);
+            transform.DOMove(slot.transform.position,anchorTime);
         }
     }
 
@@ -42,7 +29,7 @@ public class CanonDrag : MonoBehaviour
     {
         if (other.CompareTag("CanonSlot"))
         {
-            desiredPlatform = other.GetComponent<CanonSlot>();
+            other.GetComponent<CanonSlot>().AttachCanon(this);
         }
     }
     void OnTriggerExit(Collider other)

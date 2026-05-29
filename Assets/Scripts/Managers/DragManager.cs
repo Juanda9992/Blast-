@@ -13,37 +13,17 @@ public class DragManager : MonoBehaviour
     }
     void Update()
     {
-
         if (mouseDown.action.WasPressedThisFrame())
         {
             Ray ray = _camera.ScreenPointToRay(mousePos.action.ReadValue<Vector2>());
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 50))
             {
-                hit.collider.TryGetComponent<CanonDrag>(out currentCanon);
+                if(hit.collider.TryGetComponent<CanonDrag>(out currentCanon))
+                {
+                    currentCanon.OnCanonClicked();
+                }
             }
         }
-
-        if (mouseDown.action.WasReleasedThisFrame())
-        {
-            if (currentCanon != null)
-            {
-                currentCanon.ReleaseCanon();
-                currentCanon = null;
-            }
-        }
-
-        HandleCanonMovement();
-    }
-    private void HandleCanonMovement()
-    {
-        if (currentCanon == null)
-        {
-            return;
-        }
-
-        Vector3 worldPos = _camera.ScreenToWorldPoint(mousePos.action.ReadValue<Vector2>());
-        worldPos.y = 0;
-        currentCanon.MoveCanon(worldPos);
     }
 }
