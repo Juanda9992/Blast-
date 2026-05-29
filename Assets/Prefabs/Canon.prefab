@@ -89,8 +89,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _renderer: {fileID: 4517459562221439487}
-  dragSpeed: 20
   anchorTime: 0.3
+  shootSpeed: 0.1
 --- !u!65 &3222737424239647466
 BoxCollider:
   m_ObjectHideFlags: 0

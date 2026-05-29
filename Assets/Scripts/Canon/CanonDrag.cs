@@ -5,15 +5,15 @@ public class CanonDrag : MonoBehaviour
 {
     [SerializeField] private Renderer _renderer;
     [SerializeField] private float anchorTime;
+    [SerializeField] private float shootSpeed;
     private CanonSlot desiredPlatform;
-    private Vector3 initialPos;
     private ObstacleDataBase obstacleDataBase;
     private BlockType canonType;
     public void SetUpCanon(BlockType blockType)
     {
-        initialPos = transform.localPosition;
         SetUpVisuals(blockType);
         obstacleDataBase = ObstacleDataBase.instance;
+        canonType = blockType;
     }
     private void SetUpVisuals(BlockType blockType)
     {
@@ -21,7 +21,7 @@ public class CanonDrag : MonoBehaviour
         {
             _renderer.material.color = Color.yellow;
         }
-        else if(blockType == BlockType.Red)
+        else if (blockType == BlockType.Red)
         {
             _renderer.material.color = Color.red;
         }
@@ -31,7 +31,7 @@ public class CanonDrag : MonoBehaviour
         CanonSlot slot = CanonSlotManager.instance.GetFreeCanonSpace();
         if (slot != null)
         {
-            transform.DOMove(slot.transform.position, anchorTime);
+            transform.DOMove(slot.transform.position, anchorTime).OnComplete(DestroyBlocks);
         }
     }
 
@@ -47,10 +47,10 @@ public class CanonDrag : MonoBehaviour
             ObstacleBehaviour gatheredObstacleByColor = obstacleDataBase.GetFirstObstacleByColor(canonType);
             if (gatheredObstacleByColor != null)
             {
-                Destroy(gatheredObstacleByColor);
+                gatheredObstacleByColor.gameObject.SetActive(false);
             }
+            yield return new WaitForSeconds(shootSpeed);
         }
-        yield return new WaitForSeconds(0.5f);
     }
 
     void OnTriggerEnter(Collider other)

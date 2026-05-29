@@ -19,10 +19,13 @@ public class ObstacleDataBase : MonoBehaviour
     {
         for(int i = 0; i< obstacleBehaviours.Count;i++)
         {
+            if(!obstacleBehaviours[i].gameObject.activeInHierarchy)
+            {
+                continue;
+            }
             if(obstacleBehaviours[i].GetBlockType() == blockType)
             {
                 ObstacleBehaviour gatheredObstacle = obstacleBehaviours[i];
-                obstacleBehaviours.RemoveAt(i);
                 return gatheredObstacle;
             }
         }

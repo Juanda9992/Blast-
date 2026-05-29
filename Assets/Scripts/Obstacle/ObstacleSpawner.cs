@@ -27,7 +27,7 @@ public class ObstacleSpawner : MonoBehaviour
             for(int j = 0; j<rules.rows[i].blocks.Length;j++)
             {
                 ObstacleBehaviour obstacle = Instantiate(obstaclePrefab,spawnerParent);
-
+                ObstacleDataBase.instance.AddObstacleToDB(obstacle);
                 float xPos = (j * blockXSize) - offset + (blockXSize / 2);
                 obstacle.transform.localPosition = new Vector3(xPos,0,startYCoor+i);
                 obstacle.SetUpBlock(rules.rows[i].blocks[j]);
