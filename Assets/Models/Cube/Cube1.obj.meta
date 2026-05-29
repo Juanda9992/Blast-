@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: 25e4d8b41fe347f43ae1cc3995800a73
+guid: 167cdf7ea8974a34cb0c013f1d51c705
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cube.003_0Mat
+    second: {fileID: 2100000, guid: bd04f50b8a7a8f140be2895ce45a59e6, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -35,7 +40,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 100
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
