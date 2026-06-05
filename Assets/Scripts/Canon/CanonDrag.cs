@@ -47,29 +47,47 @@ public class CanonDrag : MonoBehaviour
 
     private IEnumerator DestroyBlocksCoroutine()
     {
+        do
+        {
+            ObstacleBehaviour[] obstaclesFirstRow = obstacleDataBase.GetobstaclesFirstRow();
+            for (int i = 0; i < obstaclesFirstRow.Length; i++)
+            {
+                if (obstaclesFirstRow[i] == null)
+                {
+                    continue;
+                }
+
+                if (obstaclesFirstRow[i].GetBlockType() != canonType)
+                {
+                    continue;
+                }
+
+                canonAmmo--;
+                ammoText.text = canonAmmo.ToString();
+
+                obstacleDataBase.DestroyBlock(obstaclesFirstRow[i]);
+                if (canonAmmo <= 0)
+                {
+                    yield return transform.DOScale(0, 0.3f).OnComplete(() => Destroy(gameObject)).SetDelay(0.2f).WaitForCompletion();
+                }
+                yield return new WaitForSeconds(shootSpeed);
+            }
+        }while(BlockAvaliableOnFirstRow());
+    }
+
+    private bool BlockAvaliableOnFirstRow()
+    {
         ObstacleBehaviour[] obstaclesFirstRow = obstacleDataBase.GetobstaclesFirstRow();
+        bool result = false;
         for (int i = 0; i < obstaclesFirstRow.Length; i++)
         {
-            if (obstaclesFirstRow[i] == null)
+            if (obstaclesFirstRow[i].GetBlockType() == canonType)
             {
-                continue;
+                result = true;
             }
-
-            if (obstaclesFirstRow[i].GetBlockType() != canonType)
-            {
-                continue;
-            }
-
-            canonAmmo--;
-            ammoText.text = canonAmmo.ToString();
-
-            obstacleDataBase.DestroyBlock(obstaclesFirstRow[i]);
-            if (canonAmmo <= 0)
-            {
-                yield return transform.DOScale(0, 0.3f).OnComplete(() => Destroy(gameObject)).SetDelay(0.2f).WaitForCompletion();
-            }
-            yield return new WaitForSeconds(shootSpeed);
         }
+
+        return result;
     }
 
     void OnTriggerEnter(Collider other)

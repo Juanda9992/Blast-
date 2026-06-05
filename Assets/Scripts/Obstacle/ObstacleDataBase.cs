@@ -40,13 +40,13 @@ public class ObstacleDataBase : MonoBehaviour
 
     private void MoveColumns(int columnIndex)
     {
-        int height = 12;
+        int height = LevelRulesManager.instance.GetLevelRules().levelHeight;
         Vector2Int coordinates = new Vector2Int(columnIndex, 0);
         for (int i = 0; i < height; i++)
         {
             coordinates.y = i;
 
-            if (obstacleBehaviours[coordinates] != null)
+            if (obstacleBehaviours[coordinates] != null) //The column that the block was destroyed is null, so we move 1 row up and set the new row to the next one
             {
                 Vector2Int newCoordinates = coordinates;
                 newCoordinates.y -=1;

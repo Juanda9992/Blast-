@@ -9,6 +9,8 @@ public class SOLevelRules : ScriptableObject
     public List<Row> rows = new List<Row>();
     public List<CanonRowData> canons = new List<CanonRowData>();
 
+    public int levelHeight => rows.Count;
+
     [SerializeField] private Row testingRow;
     [ContextMenu("Add row")]
     private void InsertRow()
