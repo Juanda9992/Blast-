@@ -1,12 +1,14 @@
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
+using TMPro;
 public class CanonDrag : MonoBehaviour
 {
     [SerializeField] private Renderer _renderer;
     [SerializeField] private float anchorTime;
     [SerializeField] private float shootSpeed;
     [SerializeField] private int canonAmmo;
+    [SerializeField] private TextMeshProUGUI ammoText;
     private CanonSlot desiredPlatform;
     private ObstacleDataBase obstacleDataBase;
     private BlockType canonType;
@@ -16,6 +18,7 @@ public class CanonDrag : MonoBehaviour
         obstacleDataBase = ObstacleDataBase.instance;
         canonType = canonData.canonType;
         canonAmmo = canonData.canonAmmo;
+        ammoText.text = canonAmmo.ToString();
     }
     private void SetUpVisuals(BlockType blockType)
     {
@@ -51,9 +54,10 @@ public class CanonDrag : MonoBehaviour
             {
                 gatheredObstacleByColor.gameObject.SetActive(false);
                 canonAmmo--;
-                if(canonAmmo <= 0)
+                ammoText.text = canonAmmo.ToString();
+                if (canonAmmo <= 0)
                 {
-                    yield break;
+                    yield return transform.DOScale(0,0.3f).OnComplete(()=>Destroy(gameObject)).SetDelay(0.2f).WaitForCompletion();
                 }
             }
             yield return new WaitForSeconds(shootSpeed);
