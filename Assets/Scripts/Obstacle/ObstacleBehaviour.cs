@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class ObstacleBehaviour : MonoBehaviour
+public class 
+ObstacleBehaviour : MonoBehaviour
 {
     [SerializeField] private BlockType blockType;
 
     [SerializeField] private Renderer _render;
 
     [SerializeField] private Rigidbody rb;
-    public void SetUpBlock(BlockType type)
+    [SerializeField] private Vector2 blockCoordinates;
+    public void SetUpBlock(BlockType type, Vector2 coordinates)
     {
+        blockCoordinates = coordinates;
         blockType = type;
         Color color = new Color(0,0,0);
         switch(blockType)

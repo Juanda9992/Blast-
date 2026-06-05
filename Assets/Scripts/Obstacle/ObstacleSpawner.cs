@@ -30,7 +30,7 @@ public class ObstacleSpawner : MonoBehaviour
                 ObstacleDataBase.instance.AddObstacleToDB(obstacle);
                 float xPos = (j * blockXSize) - offset + (blockXSize / 2);
                 obstacle.transform.localPosition = new Vector3(xPos,0,startYCoor+i);
-                obstacle.SetUpBlock(rules.rows[i].blocks[j]);
+                obstacle.SetUpBlock(rules.rows[i].blocks[j],new Vector2(j,i));
             }
             yield return null;
         }
