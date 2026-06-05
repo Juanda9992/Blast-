@@ -12,6 +12,7 @@ public class CanonDrag : MonoBehaviour
     private CanonSlot desiredPlatform;
     private ObstacleDataBase obstacleDataBase;
     private BlockType canonType;
+    private bool canShoot = false;
     public void SetUpCanon(CanonData canonData)
     {
         SetUpVisuals(canonData.canonType);
@@ -47,8 +48,9 @@ public class CanonDrag : MonoBehaviour
 
     private IEnumerator DestroyBlocksCoroutine()
     {
-        do
+        while(true)
         {
+            yield return new WaitUntil(()=>BlockAvaliableOnFirstRow());
             ObstacleBehaviour[] obstaclesFirstRow = obstacleDataBase.GetobstaclesFirstRow();
             for (int i = 0; i < obstaclesFirstRow.Length; i++)
             {
@@ -72,7 +74,8 @@ public class CanonDrag : MonoBehaviour
                 }
                 yield return new WaitForSeconds(shootSpeed);
             }
-        }while(BlockAvaliableOnFirstRow());
+            yield return new WaitForSeconds(0.1f);
+        }
     }
 
     private bool BlockAvaliableOnFirstRow()
@@ -81,7 +84,12 @@ public class CanonDrag : MonoBehaviour
         bool result = false;
         for (int i = 0; i < obstaclesFirstRow.Length; i++)
         {
-            if (obstaclesFirstRow[i].GetBlockType() == canonType)
+            if (obstaclesFirstRow[i] ==null)
+            {
+                continue;
+            }
+
+            if(obstaclesFirstRow[i].GetBlockType() == canonType)
             {
                 result = true;
             }
@@ -108,5 +116,4 @@ public class CanonDrag : MonoBehaviour
             }
         }
     }
-
 }

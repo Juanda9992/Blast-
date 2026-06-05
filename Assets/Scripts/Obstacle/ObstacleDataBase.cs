@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ public class ObstacleDataBase : MonoBehaviour
     [SerializeField] private Dictionary<Vector2Int, ObstacleBehaviour> obstacleBehaviours = new Dictionary<Vector2Int, ObstacleBehaviour>();
     [SerializeField] private List<Vector2Int> coords = new List<Vector2Int>();
     [SerializeField] private List<ObstacleBehaviour> obstacles = new List<ObstacleBehaviour>();
+    public static event Action OnRowUpdated;
     void Awake()
     {
         instance = this;
@@ -26,8 +28,6 @@ public class ObstacleDataBase : MonoBehaviour
             Vector2Int coordinates = new Vector2Int(i, 0);
             firstRow[i] = obstacleBehaviours[coordinates];
         }
-
-        Debug.Log(firstRow.Length);
         return firstRow;
     }
 
@@ -49,17 +49,20 @@ public class ObstacleDataBase : MonoBehaviour
             if (obstacleBehaviours[coordinates] != null) //The column that the block was destroyed is null, so we move 1 row up and set the new row to the next one
             {
                 Vector2Int newCoordinates = coordinates;
-                newCoordinates.y -=1;
+                newCoordinates.y -= 1;
                 ObstacleBehaviour prevObstacle = obstacleBehaviours[coordinates];
 
                 obstacleBehaviours[coordinates] = null;
                 obstacleBehaviours[newCoordinates] = prevObstacle;
 
-                prevObstacle.blockCoordinates = newCoordinates; 
+                prevObstacle.blockCoordinates = newCoordinates;
                 prevObstacle.UpdateBlockPos();
+
+
             }
         }
 
+        OnRowUpdated?.Invoke(); //Notifies the canons for row changes
         coords = obstacleBehaviours.Keys.ToList();
         obstacles = obstacleBehaviours.Values.ToList();
 
