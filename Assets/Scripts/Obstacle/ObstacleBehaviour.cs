@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class 
@@ -8,7 +9,7 @@ ObstacleBehaviour : MonoBehaviour
     [SerializeField] private Renderer _render;
 
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private Vector2Int blockCoordinates;
+    public Vector2Int blockCoordinates;
     public void SetUpBlock(BlockType type, Vector2Int coordinates)
     {
         blockCoordinates = coordinates;
@@ -25,18 +26,14 @@ ObstacleBehaviour : MonoBehaviour
         }
         _render.material.color = color;
     }
-    void FixedUpdate()
+
+    public void UpdateBlockPos()
     {
-        //rb.velocity = new Vector3(0,0,-5);
+        transform.DOLocalMoveZ(blockCoordinates.y,0.2f);
     }
 
     public BlockType GetBlockType()
     {
         return blockType;
-    }
-
-    public Vector2Int GetBlockCoordinates()
-    {
-        return blockCoordinates;
     }
 }
