@@ -27,6 +27,7 @@ public class CanonGeneratorManager : MonoBehaviour
         {
             CanonSlot canonSlot = Instantiate(canonPlatformPrefab, canonSlotsParent);
             canonSlot.transform.localPosition = new Vector3((spaceBetweenObjects * i) - offset, 0, 0);
+
             CanonSlotManager.instance.SetCanonInSlot(i, canonSlot);
         }
 

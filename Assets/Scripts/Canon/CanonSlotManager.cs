@@ -9,13 +9,16 @@ public class CanonSlotManager : MonoBehaviour
     {
         instance = this;
     }
-    void Start()
+    private void SetUpSlotsArray()
     {
-        slotsInLevel = new CanonSlot[LevelRulesManager.instance.GetLevelRules().canonSlots];
+        slotsInLevel = new CanonSlot[LevelRulesManager.instance.GetLevelRules().canonSlots];   
     }
-
     public void SetCanonInSlot(int index, CanonSlot canonSlot)
     {
+        if(slotsInLevel.Length == 0)
+        {
+            SetUpSlotsArray();
+        }
         slotsInLevel[index] = canonSlot;
     }
 
