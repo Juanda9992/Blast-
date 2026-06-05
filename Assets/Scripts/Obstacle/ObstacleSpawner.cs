@@ -26,11 +26,12 @@ public class ObstacleSpawner : MonoBehaviour
         {
             for(int j = 0; j<rules.rows[i].blocks.Length;j++)
             {
+                Vector2Int coordinates = new Vector2Int(j,i);
                 ObstacleBehaviour obstacle = Instantiate(obstaclePrefab,spawnerParent);
-                ObstacleDataBase.instance.AddObstacleToDB(obstacle);
+                ObstacleDataBase.instance.AddObstacleToDB(obstacle,coordinates);
                 float xPos = (j * blockXSize) - offset + (blockXSize / 2);
                 obstacle.transform.localPosition = new Vector3(xPos,0,startYCoor+i);
-                obstacle.SetUpBlock(rules.rows[i].blocks[j],new Vector2(j,i));
+                obstacle.SetUpBlock(rules.rows[i].blocks[j],coordinates);
             }
             yield return null;
         }

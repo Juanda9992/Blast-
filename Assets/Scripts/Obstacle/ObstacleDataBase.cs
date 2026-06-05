@@ -5,31 +5,33 @@ using UnityEngine;
 public class ObstacleDataBase : MonoBehaviour
 {
     public static ObstacleDataBase instance;
-    [SerializeField] private List<ObstacleBehaviour> obstacleBehaviours = new List<ObstacleBehaviour>();
+    [SerializeField] private Dictionary<Vector2Int,ObstacleBehaviour> obstacleBehaviours = new Dictionary<Vector2Int, ObstacleBehaviour>();
     void Awake()
     {
         instance = this;
     }
-    public void AddObstacleToDB(ObstacleBehaviour obstacle)
+    public void AddObstacleToDB(ObstacleBehaviour obstacle,Vector2Int coordinates)
     {
-        obstacleBehaviours.Add(obstacle);
+        obstacleBehaviours.Add(coordinates,obstacle);
     }
 
-    public ObstacleBehaviour GetFirstObstacleByColor(BlockType blockType)
+    public ObstacleBehaviour[] GetobstaclesFirstRow()
     {
-        for(int i = 0; i< obstacleBehaviours.Count;i++)
+        ObstacleBehaviour[] firstRow = new ObstacleBehaviour[10];
+        for(int i = 0; i< 10;i++)
         {
-            if(!obstacleBehaviours[i].gameObject.activeInHierarchy)
-            {
-                continue;
-            }
-            if(obstacleBehaviours[i].GetBlockType() == blockType)
-            {
-                ObstacleBehaviour gatheredObstacle = obstacleBehaviours[i];
-                return gatheredObstacle;
-            }
+            Vector2Int coordinates = new Vector2Int(i,0);
+            firstRow[i] = obstacleBehaviours[coordinates];
         }
-        return null;
+
+        Debug.Log(firstRow.Length);
+        return firstRow;
+    }
+
+    public void DestroyBlock(ObstacleBehaviour obstacleBehaviour)
+    {
+        obstacleBehaviours[obstacleBehaviour.GetBlockCoordinates()] = null;
+        Destroy(obstacleBehaviour.gameObject);
     }
 
     public int GetObstaclesInLevel()

@@ -8,8 +8,8 @@ ObstacleBehaviour : MonoBehaviour
     [SerializeField] private Renderer _render;
 
     [SerializeField] private Rigidbody rb;
-    [SerializeField] private Vector2 blockCoordinates;
-    public void SetUpBlock(BlockType type, Vector2 coordinates)
+    [SerializeField] private Vector2Int blockCoordinates;
+    public void SetUpBlock(BlockType type, Vector2Int coordinates)
     {
         blockCoordinates = coordinates;
         blockType = type;
@@ -33,5 +33,10 @@ ObstacleBehaviour : MonoBehaviour
     public BlockType GetBlockType()
     {
         return blockType;
+    }
+
+    public Vector2Int GetBlockCoordinates()
+    {
+        return blockCoordinates;
     }
 }

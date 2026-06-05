@@ -47,18 +47,26 @@ public class CanonDrag : MonoBehaviour
 
     private IEnumerator DestroyBlocksCoroutine()
     {
-        for (int i = 0; i < obstacleDataBase.GetObstaclesInLevel(); i++)
+        ObstacleBehaviour[] obstaclesFirstRow = obstacleDataBase.GetobstaclesFirstRow();
+        for (int i = 0; i < obstaclesFirstRow.Length; i++)
         {
-            ObstacleBehaviour gatheredObstacleByColor = obstacleDataBase.GetFirstObstacleByColor(canonType);
-            if (gatheredObstacleByColor != null)
+            if (obstaclesFirstRow[i] == null)
             {
-                gatheredObstacleByColor.gameObject.SetActive(false);
-                canonAmmo--;
-                ammoText.text = canonAmmo.ToString();
-                if (canonAmmo <= 0)
-                {
-                    yield return transform.DOScale(0,0.3f).OnComplete(()=>Destroy(gameObject)).SetDelay(0.2f).WaitForCompletion();
-                }
+                continue;
+            }
+
+            if (obstaclesFirstRow[i].GetBlockType() != canonType)
+            {
+                continue;
+            }
+
+            canonAmmo--;
+            ammoText.text = canonAmmo.ToString();
+
+            obstacleDataBase.DestroyBlock(obstaclesFirstRow[i]);
+            if (canonAmmo <= 0)
+            {
+                yield return transform.DOScale(0, 0.3f).OnComplete(() => Destroy(gameObject)).SetDelay(0.2f).WaitForCompletion();
             }
             yield return new WaitForSeconds(shootSpeed);
         }
