@@ -78,7 +78,7 @@ public class CanonDrag : MonoBehaviour
                 }
                 yield return new WaitForSeconds(shootSpeed);
             }
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.07f);
         }
     }
 
