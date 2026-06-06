@@ -15,7 +15,13 @@ public class SOLevelRules : ScriptableObject
     [ContextMenu("Add row")]
     private void InsertRow()
     {
-        rows.Add(testingRow);
+        Row row = new Row();
+        row.blocks = new BlockType[10];
+        for(int i = 0; i< testingRow.blocks.Length; i++)
+        {
+            row.blocks[i] = testingRow.blocks[i];
+        }
+        rows.Add(row);
     }
 }
 [System.Serializable]
@@ -39,6 +45,7 @@ public enum BlockType
 {
     None,
     Yellow,
-    Red
+    Red,
+    Blue
 }
 
