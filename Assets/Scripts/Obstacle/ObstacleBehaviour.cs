@@ -17,6 +17,9 @@ ObstacleBehaviour : MonoBehaviour
         Color color = new Color(0,0,0);
         switch(blockType)
         {
+            case BlockType.None:
+                gameObject.SetActive(false);
+                break;
             case BlockType.Yellow:
                 color = Color.yellow;
                 break;
