@@ -34,10 +34,12 @@ public class CanonCoordinatesManager : MonoBehaviour
             {
                 CanonDrag prevCanon = canonsDictionary[coordinates];
 
-                canonsDictionary[coordinates - Vector2Int.down] = prevCanon;
+                canonsDictionary[coordinates - Vector2Int.up] = prevCanon;
                 canonsDictionary[coordinates] = null;
 
                 prevCanon.canonCoordinates = coordinates - Vector2Int.up;
+
+                Debug.Log(prevCanon.name + coordinates + " " + (coordinates - Vector2Int.up));
 
                 prevCanon.UpdateCanonPos();
             }

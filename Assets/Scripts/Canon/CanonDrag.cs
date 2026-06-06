@@ -13,8 +13,7 @@ public class CanonDrag : MonoBehaviour
     public Vector2Int canonCoordinates;
     private CanonSlot desiredCanon = null;
     private ObstacleDataBase obstacleDataBase;
-    private BlockType canonType;
-    private bool canShoot = false;
+    [SerializeField] private BlockType canonType;
     public void SetUpCanon(CanonData canonData,Vector2Int coordinates)
     {
         SetUpVisuals(canonData.canonType);
@@ -37,6 +36,10 @@ public class CanonDrag : MonoBehaviour
         else if(blockType == BlockType.Blue)
         {
             _renderer.material.color = Color.blue;
+        }
+        else if(blockType == BlockType.Green)
+        {
+            _renderer.material.color = Color.green;
         }
     }
     public void OnCanonClicked()
@@ -117,6 +120,6 @@ public class CanonDrag : MonoBehaviour
 
     public void UpdateCanonPos()
     {
-        transform.DOLocalMoveZ(canonCoordinates.y,0.2f);
+        transform.DOLocalMoveZ(canonCoordinates.y * -2,0.2f);
     }
 }

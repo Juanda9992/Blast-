@@ -38,6 +38,7 @@ public class CanonGeneratorManager : MonoBehaviour
     private void GenerateCanons(SOLevelRules levelRules)
     {       
         float canonsRowSpace = 2;
+        int counter = 0;
         for (int i = 0; i < levelRules.canons.Count; i++)
         {
             float avaliabelCanonSpace = 5.5f;
@@ -51,8 +52,10 @@ public class CanonGeneratorManager : MonoBehaviour
                 CanonDrag canonDrag = Instantiate(canonDragPrefab, canonDragParent);
                 canonDrag.transform.localPosition = new Vector3((SpaceBetweenCanons * j) - canonOffset, 0, 0 - (i * canonsRowSpace));
                 canonDrag.SetUpCanon(levelRules.canons[i].canonDatas[j],coordinates);
-
+                canonDrag.name = "Canon_" + counter;
                 CanonCoordinatesManager.instance.AddCanonToDatabase(coordinates,canonDrag);
+
+                counter++;
             }
         }
         canonDragParent.transform.position = new Vector3(0, 0, canonDragParentZPos);

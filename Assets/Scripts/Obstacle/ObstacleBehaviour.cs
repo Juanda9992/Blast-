@@ -26,6 +26,9 @@ ObstacleBehaviour : MonoBehaviour
             case BlockType.Blue:
                 color = Color.blue;
                 break;
+            case BlockType.Green:
+                color = Color.green;
+                break;
         }
         _render.material.color = color;
     }
