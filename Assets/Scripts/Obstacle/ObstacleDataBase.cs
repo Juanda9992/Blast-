@@ -11,7 +11,6 @@ public class ObstacleDataBase : MonoBehaviour
     [SerializeField] private Dictionary<Vector2Int, ObstacleBehaviour> obstacleBehaviours = new Dictionary<Vector2Int, ObstacleBehaviour>();
     [SerializeField] private List<Vector2Int> coords = new List<Vector2Int>();
     [SerializeField] private List<ObstacleBehaviour> obstacles = new List<ObstacleBehaviour>();
-    public static event Action OnRowUpdated;
     void Awake()
     {
         instance = this;
@@ -64,8 +63,6 @@ public class ObstacleDataBase : MonoBehaviour
 
             }
         }
-
-        OnRowUpdated?.Invoke(); //Notifies the canons for row changes
         coords = obstacleBehaviours.Keys.ToList();
         obstacles = obstacleBehaviours.Values.ToList();
 

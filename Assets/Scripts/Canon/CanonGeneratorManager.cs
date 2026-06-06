@@ -47,9 +47,12 @@ public class CanonGeneratorManager : MonoBehaviour
 
             for (int j = 0; j < levelRules.canons[i].canonDatas.Length; j++)
             {
+                Vector2Int coordinates = new Vector2Int(j,i);
                 CanonDrag canonDrag = Instantiate(canonDragPrefab, canonDragParent);
                 canonDrag.transform.localPosition = new Vector3((SpaceBetweenCanons * j) - canonOffset, 0, 0 - (i * canonsRowSpace));
-                canonDrag.SetUpCanon(levelRules.canons[i].canonDatas[j]);
+                canonDrag.SetUpCanon(levelRules.canons[i].canonDatas[j],coordinates);
+
+                CanonCoordinatesManager.instance.AddCanonToDatabase(coordinates,canonDrag);
             }
         }
         canonDragParent.transform.position = new Vector3(0, 0, canonDragParentZPos);

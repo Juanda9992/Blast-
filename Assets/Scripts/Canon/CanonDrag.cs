@@ -9,17 +9,20 @@ public class CanonDrag : MonoBehaviour
     [SerializeField] private float shootSpeed;
     [SerializeField] private int canonAmmo;
     [SerializeField] private TextMeshProUGUI ammoText;
-    private CanonSlot desiredPlatform;
+
+    public Vector2Int canonCoordinates;
+    private CanonSlot desiredCanon = null;
     private ObstacleDataBase obstacleDataBase;
     private BlockType canonType;
     private bool canShoot = false;
-    public void SetUpCanon(CanonData canonData)
+    public void SetUpCanon(CanonData canonData,Vector2Int coordinates)
     {
         SetUpVisuals(canonData.canonType);
         obstacleDataBase = ObstacleDataBase.instance;
         canonType = canonData.canonType;
         canonAmmo = canonData.canonAmmo;
         ammoText.text = canonAmmo.ToString();
+        canonCoordinates = coordinates;
     }
     private void SetUpVisuals(BlockType blockType)
     {
@@ -38,10 +41,16 @@ public class CanonDrag : MonoBehaviour
     }
     public void OnCanonClicked()
     {
-        CanonSlot slot = CanonSlotManager.instance.GetFreeCanonSpace();
-        if (slot != null)
+        if(canonCoordinates.y != 0)
         {
-            transform.DOMove(slot.transform.position, anchorTime).OnComplete(DestroyBlocks);
+            return;
+        }
+        desiredCanon = CanonSlotManager.instance.GetFreeCanonSpace();
+        if (desiredCanon != null)
+        {
+            desiredCanon.AttachCanon(this);
+            CanonCoordinatesManager.instance.AttachCanon(this);
+            transform.DOMove(desiredCanon.transform.position, anchorTime).OnComplete(DestroyBlocks);
         }
     }
 
@@ -74,11 +83,15 @@ public class CanonDrag : MonoBehaviour
                 obstacleDataBase.DestroyBlock(obstaclesFirstRow[i]);
                 if (canonAmmo <= 0)
                 {
-                    yield return transform.DOScale(0, 0.3f).OnComplete(() => Destroy(gameObject)).SetDelay(0.2f).WaitForCompletion();
+                    yield return transform.DOScale(0, 0.3f).OnComplete(() => 
+                    {
+                        desiredCanon.AttachCanon(null);
+                        Destroy(gameObject);
+                    }).SetDelay(0.2f).WaitForCompletion();
                 }
                 yield return new WaitForSeconds(shootSpeed);
             }
-            yield return new WaitForSeconds(0.07f);
+            yield return new WaitForSeconds(0.06f);
         }
     }
 
@@ -102,22 +115,8 @@ public class CanonDrag : MonoBehaviour
         return result;
     }
 
-    void OnTriggerEnter(Collider other)
+    public void UpdateCanonPos()
     {
-        if (other.CompareTag("CanonSlot"))
-        {
-            other.GetComponent<CanonSlot>().AttachCanon(this);
-        }
-    }
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("CanonSlot"))
-        {
-            if (desiredPlatform != null)
-            {
-                desiredPlatform.AttachCanon(null);
-                desiredPlatform = null;
-            }
-        }
+        transform.DOLocalMoveZ(canonCoordinates.y,0.2f);
     }
 }
