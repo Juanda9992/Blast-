@@ -11,4 +11,14 @@ public class CanonSlot : MonoBehaviour
     {
         currentCanon = canonDrag;
     }
+
+    public BlockType AttachedCanonType()
+    {
+        return isEmpty ? BlockType.None : currentCanon.GetCanonType();
+    }
+
+    public CanonDrag GetCurrentCanon()
+    {
+        return currentCanon;
+    }
 }

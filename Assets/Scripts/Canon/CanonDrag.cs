@@ -122,4 +122,8 @@ public class CanonDrag : MonoBehaviour
     {
         transform.DOLocalMoveZ(canonCoordinates.y * -2,0.2f);
     }
+    public BlockType GetCanonType()
+    {
+        return canonType;
+    }
 }

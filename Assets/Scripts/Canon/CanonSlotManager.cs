@@ -11,22 +11,48 @@ public class CanonSlotManager : MonoBehaviour
     }
     private void SetUpSlotsArray()
     {
-        slotsInLevel = new CanonSlot[LevelRulesManager.instance.GetLevelRules().canonSlots];   
+        slotsInLevel = new CanonSlot[LevelRulesManager.instance.GetLevelRules().canonSlots];
     }
     public void SetCanonInSlot(int index, CanonSlot canonSlot)
     {
-        if(slotsInLevel.Length == 0)
+        if (slotsInLevel.Length == 0)
         {
             SetUpSlotsArray();
         }
         slotsInLevel[index] = canonSlot;
     }
 
+    public void OnCanonMovedToSlot()
+    {
+        if (CheckCanonsOfSameColor())
+        {
+            Debug.Log("Identical canon");
+        }
+    }
+
+    private bool CheckCanonsOfSameColor()
+    {
+        bool result = true;
+        for (int i = 0; i < slotsInLevel.Length; i++)
+        {
+            if (slotsInLevel[i].isEmpty)
+            {
+                return false;
+            }
+
+            if (slotsInLevel[i].GetCurrentCanon().GetCanonType() != slotsInLevel[0].GetCurrentCanon().GetCanonType())
+            {
+                result = false;
+            }
+        }
+        return result;
+    }
+
     public CanonSlot GetFreeCanonSpace()
     {
-        for(int i =0;i<slotsInLevel.Length;i++)
+        for (int i = 0; i < slotsInLevel.Length; i++)
         {
-            if(slotsInLevel[i].isEmpty)
+            if (slotsInLevel[i].isEmpty)
             {
                 return slotsInLevel[i];
             }

@@ -19,6 +19,7 @@ public class CanonCoordinatesManager : MonoBehaviour
     public void AttachCanon(CanonDrag canonDrag)
     {
         canonsDictionary[canonDrag.canonCoordinates] = null;
+        CanonSlotManager.instance.OnCanonMovedToSlot();
         MoveCanons(canonDrag.canonCoordinates.x);
     }
 
@@ -38,9 +39,6 @@ public class CanonCoordinatesManager : MonoBehaviour
                 canonsDictionary[coordinates] = null;
 
                 prevCanon.canonCoordinates = coordinates - Vector2Int.up;
-
-                Debug.Log(prevCanon.name + coordinates + " " + (coordinates - Vector2Int.up));
-
                 prevCanon.UpdateCanonPos();
             }
         }
