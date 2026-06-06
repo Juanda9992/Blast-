@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "Level Rules Data",menuName = "Scriptables/Level Rule Data")]
@@ -10,6 +9,7 @@ public class SOLevelRules : ScriptableObject
     public List<CanonRowData> canons = new List<CanonRowData>();
 
     public int levelHeight => rows.Count;
+    public int levelBlocks = 120;
 
     [SerializeField] private Row testingRow;
     [ContextMenu("Add row")]

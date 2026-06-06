@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class ObstacleDataBase : MonoBehaviour
 {
+    public static event Action OnBlockDestroyed;
     public static ObstacleDataBase instance;
     [SerializeField] private Dictionary<Vector2Int, ObstacleBehaviour> obstacleBehaviours = new Dictionary<Vector2Int, ObstacleBehaviour>();
     [SerializeField] private List<Vector2Int> coords = new List<Vector2Int>();
@@ -36,6 +37,8 @@ public class ObstacleDataBase : MonoBehaviour
         obstacleBehaviours[obstacleBehaviour.blockCoordinates] = null;
         MoveColumns(obstacleBehaviour.blockCoordinates.x);
         Destroy(obstacleBehaviour.gameObject);
+
+        OnBlockDestroyed?.Invoke();
     }
 
     private void MoveColumns(int columnIndex)
