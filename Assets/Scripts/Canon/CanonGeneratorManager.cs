@@ -31,12 +31,17 @@ public class CanonGeneratorManager : MonoBehaviour
             CanonSlotManager.instance.SetCanonInSlot(i, canonSlot);
         }
 
+
         for (int i = 0; i < levelRules.canons.Count; i++)
         {
+            float SpaceBetweenCanons = avaliableSpace / levelRules.canons[i].canonDatas.Length;
+            float canonsWidth = SpaceBetweenCanons * (levelRules.canons[i].canonDatas.Length-1);
+            float canonOffset = canonsWidth / 2;
+
             for (int j = 0; j < levelRules.canons[i].canonDatas.Length; j++)
             {
                 CanonDrag canonDrag = Instantiate(canonDragPrefab, canonDragParent);
-                canonDrag.transform.localPosition = new Vector3((spaceBetweenObjects * j) - offset, 0, 0);
+                canonDrag.transform.localPosition = new Vector3((SpaceBetweenCanons * j) - canonOffset, 0, 0);
                 canonDrag.SetUpCanon(levelRules.canons[i].canonDatas[j]);
             }
         }
