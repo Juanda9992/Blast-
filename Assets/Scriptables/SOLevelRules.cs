@@ -46,6 +46,7 @@ public enum BlockType
     None,
     Yellow,
     Red,
-    Blue
+    Blue,
+    Green
 }
 
