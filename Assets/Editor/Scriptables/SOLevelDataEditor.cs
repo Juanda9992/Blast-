@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 public class SOLevelDataEditor : Editor
 {
     private SOLevelRules inspector;
+    private SliderInt rowHeight;
     public override VisualElement CreateInspectorGUI()
     {
         inspector = (SOLevelRules) target;
@@ -45,9 +46,13 @@ public class SOLevelDataEditor : Editor
         clearButton.text = "Clear all rows";
         clearButton.clicked += ClearRows;
 
+        rowHeight = new SliderInt("Row Height",1,4);
+        rowHeight.showInputField = true;
+
         root.Add(rowsLabels);
         root.Add(buttonsContainer);
         root.Add(clearButton);
+        root.Add(rowHeight);
     }
 
     private void GenerateRow(BlockType blockType)
@@ -65,6 +70,7 @@ public class SOLevelDataEditor : Editor
         {
             inspector.rows = new System.Collections.Generic.List<Row>();
         }
+        row.layerLevel = rowHeight.value;
         inspector.rows.Add(row);
         EditorUtility.SetDirty(inspector);
     }
