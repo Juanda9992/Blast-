@@ -292,9 +292,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _renderer: {fileID: 4517459562221439487}
   anchorTime: 0.3
-  shootSpeed: 0.1
+  shootSpeed: 0.07
   canonAmmo: 0
   ammoText: {fileID: 7332728672962236411}
+  canonCoordinates: {x: 0, y: 0}
+  canonType: 0
 --- !u!65 &3222737424239647466
 BoxCollider:
   m_ObjectHideFlags: 0
