@@ -34,12 +34,10 @@ public class ObstacleSpawner : MonoBehaviour
                 float xPos = (j * blockXSize) - offset + (blockXSize / 2);
                 obstacle.transform.localPosition = new Vector3(xPos, 0, startYCoor + i);
 
-                if(rules.rows[i].isDoubleLayer)
-                {
-                    obstacle.transform.localScale = new Vector3(transform.localScale.x,transform.localScale.y * 2, transform.localScale.z);
-                }
 
-                obstacle.SetUpBlock(rules.rows[i].blocks[j], coordinates,rules.rows[i].isDoubleLayer);
+                obstacle.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * rules.rows[i].layerLevel, transform.localScale.z);
+
+                obstacle.SetUpBlock(rules.rows[i].blocks[j], coordinates, rules.rows[i].layerLevel);
 
                 obstacle.name = "Obstacle_" + counter;
                 counter++;

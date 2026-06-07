@@ -17,6 +17,7 @@ public class SOLevelRules : ScriptableObject
     {
         Row row = new Row();
         row.blocks = new BlockType[10];
+        row.layerLevel = testingRow.layerLevel;
         for(int i = 0; i< testingRow.blocks.Length; i++)
         {
             row.blocks[i] = testingRow.blocks[i];
@@ -28,7 +29,7 @@ public class SOLevelRules : ScriptableObject
 public class Row
 {
     public BlockType[] blocks;
-    public bool isDoubleLayer = false;
+    public int layerLevel = 1;
 }
 [System.Serializable]
 public class CanonRowData

@@ -86,7 +86,7 @@ public class CanonDrag : MonoBehaviour
                     continue;
                 }
 
-                int ammo = obstaclesFirstRow[i].IsObstacleDoubleLayer() ? 2 : 1;
+                int ammo = obstaclesFirstRow[i].GetObstacleHeight();
                 canonAmmo-= ammo;
                 ammoText.text = canonAmmo.ToString();
 
