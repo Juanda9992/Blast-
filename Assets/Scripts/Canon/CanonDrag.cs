@@ -14,36 +14,43 @@ public class CanonDrag : MonoBehaviour
     private CanonSlot desiredCanon = null;
     private ObstacleDataBase obstacleDataBase;
     [SerializeField] private BlockType canonType;
+    private bool isMysterious;
     public void SetUpCanon(CanonData canonData, Vector2Int coordinates)
     {
-        SetUpVisuals(canonData.canonType);
         obstacleDataBase = ObstacleDataBase.instance;
         canonType = canonData.canonType;
         canonAmmo = canonData.canonAmmo;
+        isMysterious = canonData.isMistery;
         ammoText.text = canonAmmo.ToString();
         canonCoordinates = coordinates;
+        SetUpVisuals();
     }
-    private void SetUpVisuals(BlockType blockType)
+    private void SetUpVisuals()
     {
-        if (blockType == BlockType.Yellow)
+        if (canonCoordinates.y != 0 && isMysterious)
+        {
+            _renderer.material.color = Color.gray;
+            return;
+        }
+        if (canonType == BlockType.Yellow)
         {
             _renderer.material.color = Color.yellow;
         }
-        else if (blockType == BlockType.Red)
+        else if (canonType == BlockType.Red)
         {
             _renderer.material.color = Color.red;
         }
-        else if (blockType == BlockType.Blue)
+        else if (canonType == BlockType.Blue)
         {
             _renderer.material.color = Color.blue;
         }
-        else if (blockType == BlockType.Green)
+        else if (canonType == BlockType.Green)
         {
             _renderer.material.color = Color.green;
         }
-        else if (blockType == BlockType.Orange)
+        else if (canonType == BlockType.Orange)
         {
-            _renderer.material.color = new Color(1,0.6f,0,1);
+            _renderer.material.color = new Color(1, 0.6f, 0, 1);
         }
     }
     public void OnCanonClicked()
@@ -91,7 +98,7 @@ public class CanonDrag : MonoBehaviour
                 }
 
                 int ammo = obstaclesFirstRow[i].GetObstacleHeight();
-                canonAmmo-= ammo;
+                canonAmmo -= ammo;
                 ammoText.text = canonAmmo.ToString();
 
                 obstacleDataBase.DestroyBlock(obstaclesFirstRow[i]);
@@ -132,6 +139,7 @@ public class CanonDrag : MonoBehaviour
     public void UpdateCanonPos()
     {
         transform.DOLocalMoveZ(canonCoordinates.y * -2, 0.2f);
+        SetUpVisuals();
     }
 
     public BlockType GetCanonType()

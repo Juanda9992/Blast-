@@ -28,7 +28,7 @@ public class SOLevelRules : ScriptableObject
 public class Row
 {
     public BlockType[] blocks;
-    public int layerLevel = 1;
+    [Range(1,4)]public int layerLevel = 1;
 }
 [System.Serializable]
 public class CanonRowData
@@ -40,6 +40,7 @@ public class CanonRowData
 public class CanonData
 {
     public BlockType canonType;
+    public bool isMistery;
     public int canonAmmo;
 }
 public enum BlockType
