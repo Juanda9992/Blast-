@@ -3,8 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Level Rules Data",menuName = "Scriptables/Level Rule Data")]
 public class SOLevelRules : ScriptableObject
 {
-    public Color[] levelColors;
-    public int canonSlots;
+    [Range(1,6)]public int canonSlots;
     public List<Row> rows = new List<Row>();
     public List<CanonRowData> canons = new List<CanonRowData>();
 
@@ -49,6 +48,7 @@ public enum BlockType
     Yellow,
     Red,
     Blue,
-    Green
+    Green,
+    Orange
 }
 

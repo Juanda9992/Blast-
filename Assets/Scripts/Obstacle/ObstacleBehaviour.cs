@@ -33,6 +33,9 @@ ObstacleBehaviour : MonoBehaviour
             case BlockType.Green:
                 color = Color.green;
                 break;
+            case BlockType.Orange:
+                color = new Color(1,0.6f,0,1);
+                break;
         }
         _render.material.color = color;
         blockHeight = doubleLayer;

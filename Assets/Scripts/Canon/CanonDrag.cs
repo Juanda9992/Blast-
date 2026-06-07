@@ -41,6 +41,10 @@ public class CanonDrag : MonoBehaviour
         {
             _renderer.material.color = Color.green;
         }
+        else if (blockType == BlockType.Orange)
+        {
+            _renderer.material.color = new Color(1,0.6f,0,1);
+        }
     }
     public void OnCanonClicked()
     {
