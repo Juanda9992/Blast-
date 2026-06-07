@@ -86,7 +86,8 @@ public class CanonDrag : MonoBehaviour
                     continue;
                 }
 
-                canonAmmo--;
+                int ammo = obstaclesFirstRow[i].IsObstacleDoubleLayer() ? 2 : 1;
+                canonAmmo-= ammo;
                 ammoText.text = canonAmmo.ToString();
 
                 obstacleDataBase.DestroyBlock(obstaclesFirstRow[i]);

@@ -10,7 +10,8 @@ ObstacleBehaviour : MonoBehaviour
 
     [SerializeField] private Rigidbody rb;
     public Vector2Int blockCoordinates;
-    public void SetUpBlock(BlockType type, Vector2Int coordinates)
+    private bool isDoubleLayer;
+    public void SetUpBlock(BlockType type, Vector2Int coordinates,bool doubleLayer)
     {
         blockCoordinates = coordinates;
         blockType = type;
@@ -34,6 +35,7 @@ ObstacleBehaviour : MonoBehaviour
                 break;
         }
         _render.material.color = color;
+        isDoubleLayer = doubleLayer;
     }
 
     public void UpdateBlockPos()
@@ -44,5 +46,9 @@ ObstacleBehaviour : MonoBehaviour
     public BlockType GetBlockType()
     {
         return blockType;
+    }
+    public bool IsObstacleDoubleLayer()
+    {
+        return isDoubleLayer;
     }
 }

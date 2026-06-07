@@ -28,6 +28,7 @@ public class SOLevelRules : ScriptableObject
 public class Row
 {
     public BlockType[] blocks;
+    public bool isDoubleLayer = false;
 }
 [System.Serializable]
 public class CanonRowData

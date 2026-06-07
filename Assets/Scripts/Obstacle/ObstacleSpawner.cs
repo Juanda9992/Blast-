@@ -33,7 +33,13 @@ public class ObstacleSpawner : MonoBehaviour
                 ObstacleDataBase.instance.AddObstacleToDB(obstacle, coordinates);
                 float xPos = (j * blockXSize) - offset + (blockXSize / 2);
                 obstacle.transform.localPosition = new Vector3(xPos, 0, startYCoor + i);
-                obstacle.SetUpBlock(rules.rows[i].blocks[j], coordinates);
+
+                if(rules.rows[i].isDoubleLayer)
+                {
+                    obstacle.transform.localScale = new Vector3(transform.localScale.x,transform.localScale.y * 2, transform.localScale.z);
+                }
+
+                obstacle.SetUpBlock(rules.rows[i].blocks[j], coordinates,rules.rows[i].isDoubleLayer);
 
                 obstacle.name = "Obstacle_" + counter;
                 counter++;
