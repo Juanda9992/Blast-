@@ -14,7 +14,7 @@ public class CanonDrag : MonoBehaviour
     private CanonSlot desiredCanon = null;
     private ObstacleDataBase obstacleDataBase;
     [SerializeField] private BlockType canonType;
-    public void SetUpCanon(CanonData canonData,Vector2Int coordinates)
+    public void SetUpCanon(CanonData canonData, Vector2Int coordinates)
     {
         SetUpVisuals(canonData.canonType);
         obstacleDataBase = ObstacleDataBase.instance;
@@ -33,18 +33,18 @@ public class CanonDrag : MonoBehaviour
         {
             _renderer.material.color = Color.red;
         }
-        else if(blockType == BlockType.Blue)
+        else if (blockType == BlockType.Blue)
         {
             _renderer.material.color = Color.blue;
         }
-        else if(blockType == BlockType.Green)
+        else if (blockType == BlockType.Green)
         {
             _renderer.material.color = Color.green;
         }
     }
     public void OnCanonClicked()
     {
-        if(canonCoordinates.y != 0)
+        if (canonCoordinates.y != 0)
         {
             return;
         }
@@ -52,8 +52,8 @@ public class CanonDrag : MonoBehaviour
         if (desiredCanon != null)
         {
             desiredCanon.AttachCanon(this);
-            CanonCoordinatesManager.instance.AttachCanon(this);
             transform.DOMove(desiredCanon.transform.position, anchorTime).OnComplete(DestroyBlocks);
+            CanonCoordinatesManager.instance.AttachCanon(this);
         }
     }
 
@@ -62,11 +62,17 @@ public class CanonDrag : MonoBehaviour
         StartCoroutine("DestroyBlocksCoroutine");
     }
 
+    public void UpdateCannonAmmo(int ammo)
+    {
+        canonAmmo = ammo;
+        ammoText.text = canonAmmo.ToString();
+    }
+
     private IEnumerator DestroyBlocksCoroutine()
     {
-        while(true)
+        while (desiredCanon != null)
         {
-            yield return new WaitUntil(()=>BlockAvaliableOnFirstRow());
+            yield return new WaitUntil(() => BlockAvaliableOnFirstRow());
             ObstacleBehaviour[] obstaclesFirstRow = obstacleDataBase.GetobstaclesFirstRow();
             for (int i = 0; i < obstaclesFirstRow.Length; i++)
             {
@@ -86,7 +92,7 @@ public class CanonDrag : MonoBehaviour
                 obstacleDataBase.DestroyBlock(obstaclesFirstRow[i]);
                 if (canonAmmo <= 0)
                 {
-                    yield return transform.DOScale(0, 0.3f).OnComplete(() => 
+                    yield return transform.DOScale(0, 0.3f).OnComplete(() =>
                     {
                         desiredCanon.AttachCanon(null);
                         Destroy(gameObject);
@@ -104,12 +110,12 @@ public class CanonDrag : MonoBehaviour
         bool result = false;
         for (int i = 0; i < obstaclesFirstRow.Length; i++)
         {
-            if (obstaclesFirstRow[i] ==null)
+            if (obstaclesFirstRow[i] == null)
             {
                 continue;
             }
 
-            if(obstaclesFirstRow[i].GetBlockType() == canonType)
+            if (obstaclesFirstRow[i].GetBlockType() == canonType)
             {
                 result = true;
             }
@@ -120,10 +126,16 @@ public class CanonDrag : MonoBehaviour
 
     public void UpdateCanonPos()
     {
-        transform.DOLocalMoveZ(canonCoordinates.y * -2,0.2f);
+        transform.DOLocalMoveZ(canonCoordinates.y * -2, 0.2f);
     }
+
     public BlockType GetCanonType()
     {
         return canonType;
+    }
+
+    public int GetCannonAmmo()
+    {
+        return canonAmmo;
     }
 }

@@ -26,8 +26,30 @@ public class CanonSlotManager : MonoBehaviour
     {
         if (CheckCanonsOfSameColor())
         {
-            Debug.Log("Identical canon");
+            ClearCanons();
         }
+    }
+    private void ClearCanons()
+    {
+        int middleCanon = Mathf.RoundToInt(slotsInLevel.Length / 2);
+        int ammo = 0;
+        for (int i = 0; i < slotsInLevel.Length; i++)
+        {
+            CanonDrag canon = slotsInLevel[i].GetCurrentCanon();
+            ammo += canon.GetCannonAmmo();
+        }
+        slotsInLevel[middleCanon].GetCurrentCanon().UpdateCannonAmmo(ammo);
+
+
+        for (int i = 0; i < slotsInLevel.Length; i++)
+        {
+            if (i != middleCanon)
+            {
+                Destroy(slotsInLevel[i].GetCurrentCanon().gameObject);
+                slotsInLevel[i].AttachCanon(null);
+            }
+        }
+
     }
 
     private bool CheckCanonsOfSameColor()
@@ -59,4 +81,5 @@ public class CanonSlotManager : MonoBehaviour
         }
         return null;
     }
+
 }

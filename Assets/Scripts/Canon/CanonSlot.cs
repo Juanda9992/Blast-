@@ -6,7 +6,7 @@ public class CanonSlot : MonoBehaviour
     {
         get {return currentCanon == null;}
     }
-    private CanonDrag currentCanon;
+    [SerializeField]private CanonDrag currentCanon;
     public void AttachCanon(CanonDrag canonDrag)
     {
         currentCanon = canonDrag;
