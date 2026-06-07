@@ -67,9 +67,4 @@ public class ObstacleDataBase : MonoBehaviour
         obstacles = obstacleBehaviours.Values.ToList();
 
     }
-
-    public int GetObstaclesInLevel()
-    {
-        return obstacleBehaviours.Count;
-    }
 }

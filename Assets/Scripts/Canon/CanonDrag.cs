@@ -127,8 +127,9 @@ public class CanonDrag : MonoBehaviour
                 continue;
             }
 
-            if (obstaclesFirstRow[i].GetBlockType() == canonType)
+            if (obstaclesFirstRow[i].GetBlockType() == canonType && !obstaclesFirstRow[i].isTargeted)
             {
+                obstaclesFirstRow[i].isTargeted = true;
                 result = true;
             }
         }

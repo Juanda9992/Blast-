@@ -11,6 +11,7 @@ ObstacleBehaviour : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     public Vector2Int blockCoordinates;
     private int blockHeight;
+    public bool isTargeted = false;
     public void SetUpBlock(BlockType type, Vector2Int coordinates,int doubleLayer)
     {
         blockCoordinates = coordinates;
