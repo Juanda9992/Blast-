@@ -44,7 +44,7 @@ public class ObstacleDataBase : MonoBehaviour
     {
         int height = LevelRulesManager.instance.GetLevelRules().levelHeight;
         Vector2Int coordinates = new Vector2Int(columnIndex, 0);
-        for (int i = 0; i < height; i++)
+        for (int i = 1; i < height; i++)
         {
             coordinates.y = i;
 

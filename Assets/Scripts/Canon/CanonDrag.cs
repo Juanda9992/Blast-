@@ -96,7 +96,7 @@ public class CanonDrag : MonoBehaviour
                 {
                     continue;
                 }
-
+                yield return new WaitForSeconds(Random.Range(0.001f,0.01f));
                 int ammo = obstaclesFirstRow[i].GetObstacleHeight();
                 canonAmmo -= ammo;
                 ammoText.text = canonAmmo.ToString();

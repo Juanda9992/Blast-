@@ -19,7 +19,6 @@ public class LevelProgressManager : MonoBehaviour
 
         if(progressBar.value == progressBar.maxValue)
         {
-            Debug.Log("Level Beaten");
         }
 
     }

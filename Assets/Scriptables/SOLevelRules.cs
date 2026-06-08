@@ -9,20 +9,6 @@ public class SOLevelRules : ScriptableObject
 
     public int levelHeight => rows.Count;
     public int levelBlocks = 120;
-
-    [SerializeField] private Row testingRow;
-    [ContextMenu("Add row")]
-    private void InsertRow()
-    {
-        Row row = new Row();
-        row.blocks = new BlockType[10];
-        row.layerLevel = testingRow.layerLevel;
-        for(int i = 0; i< testingRow.blocks.Length; i++)
-        {
-            row.blocks[i] = testingRow.blocks[i];
-        }
-        rows.Add(row);
-    }
 }
 [System.Serializable]
 public class Row
