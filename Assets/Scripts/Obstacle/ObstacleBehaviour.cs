@@ -1,3 +1,4 @@
+using System.Collections;
 using DG.Tweening;
 using UnityEngine;
 
@@ -59,6 +60,12 @@ ObstacleBehaviour : MonoBehaviour
 
     public void SetObjectToDestroy()
     {
-        transform.DOScale(0,destroyTime).OnComplete(()=>gameObject.SetActive(false));
+        _render.transform.DOScale(0,destroyTime).OnComplete(()=>StartCoroutine(SetObjectInactive())).SetDelay(0.1f);
+    }
+
+    private IEnumerator SetObjectInactive()
+    {
+        yield return new WaitForSeconds(1);
+        gameObject.SetActive(false);
     }
 }
