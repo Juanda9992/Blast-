@@ -27,31 +27,7 @@ public class CanonDrag : MonoBehaviour
     }
     private void SetUpVisuals()
     {
-        if (canonCoordinates.y != 0 && isMysterious)
-        {
-            _renderer.material.color = Color.gray;
-            return;
-        }
-        if (canonType == BlockType.Yellow)
-        {
-            _renderer.material.color = Color.yellow;
-        }
-        else if (canonType == BlockType.Red)
-        {
-            _renderer.material.color = Color.red;
-        }
-        else if (canonType == BlockType.Blue)
-        {
-            _renderer.material.color = Color.blue;
-        }
-        else if (canonType == BlockType.Green)
-        {
-            _renderer.material.color = Color.green;
-        }
-        else if (canonType == BlockType.Orange)
-        {
-            _renderer.material.color = new Color(1, 0.6f, 0, 1);
-        }
+        _renderer.material.color = ColorManager.instance.GetColorByBlockType(canonType);
     }
     public void OnCanonClicked()
     {
