@@ -35,7 +35,7 @@ public class ObstacleDataBase : MonoBehaviour
     {
         obstacleBehaviours[obstacleBehaviour.blockCoordinates] = null;
         MoveColumns(obstacleBehaviour.blockCoordinates.x);
-        Destroy(obstacleBehaviour.gameObject);
+        obstacleBehaviour.SetObjectToDestroy();
 
         OnBlockDestroyed?.Invoke();
     }

@@ -9,6 +9,7 @@ ObstacleBehaviour : MonoBehaviour
     [SerializeField] private Renderer _render;
 
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private float destroyTime;
     public Vector2Int blockCoordinates;
     private int blockHeight;
     public bool isTargeted = false;
@@ -54,5 +55,10 @@ ObstacleBehaviour : MonoBehaviour
     public int GetObstacleHeight()
     {
         return blockHeight;
+    }
+
+    public void SetObjectToDestroy()
+    {
+        transform.DOScale(0,destroyTime).OnComplete(()=>gameObject.SetActive(false));
     }
 }
