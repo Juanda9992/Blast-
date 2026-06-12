@@ -101,6 +101,8 @@ public class CanonDrag : MonoBehaviour
                 canonAmmo -= ammo;
                 ammoText.text = canonAmmo.ToString();
 
+                transform.DOShakeScale(0.1f,0.15f);
+
                 obstacleDataBase.DestroyBlock(obstaclesFirstRow[i]);
                 if (canonAmmo <= 0)
                 {
