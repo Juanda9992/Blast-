@@ -27,7 +27,7 @@ public class CanonDrag : MonoBehaviour
     }
     private void SetUpVisuals()
     {
-        _renderer.material.color = ColorManager.instance.GetColorByBlockType(canonType);
+        _renderer.material.color = ColorManager.instance.GetColorByBlockType(canonType) * (canonCoordinates.y == 0 ? 1 : 0.5f);
     }
     public void OnCanonClicked()
     {
